@@ -1,13 +1,6 @@
-import { InjectionKey } from '@vue/runtime-core';
-import { createStore, Store, useStore as baseUseStore } from 'vuex';
-interface IAudio {
-  id?: number,
-  url?: string,
-  name: string,
-  category: string
-}
+import { computed, provide, inject, reactive } from 'vue';
 
-function* generateId (id: number) {
+function* generateId(id: number) {
   let index: number = id;
   while (true) {
     yield index++;
@@ -15,38 +8,41 @@ function* generateId (id: number) {
   return index;
 }
 const increamentId = generateId(1);
+export const initStore = () => {
+  // State
+  const state: any = reactive({
+    audioUrls: []
+  });
 
-export interface State {
-  audioUrls: IAudio[]
-}
+  // Getters
+  const audioUrls = computed(() => state.audioUrls);
 
-export const key: InjectionKey<Store<State>> = Symbol()
-export const store = createStore<State>({
-  state(): State {
-    return {
-      audioUrls: []
-    }
-  },
-  mutations: {
-    add (state: any, payload: IAudio) {
-      state.audioUrls.push(payload)
-    },
-    update (state: any, { id, payload }: { id: number, payload: IAudio }) {
-      console.log()
-      const index: number = state.audioUrls.findIndex((item: { id: number; }) => item.id === id);
-      if (index !== -1) {
-        state.audioUrls[index] = Object.assign(state.audioUrls[index], payload);
-      }
-    }
-  },
-  actions: {
-    addUrl ({ commit }, data: IAudio): number {
-      const id: number = increamentId.next().value;
-      commit('add', { id, ...data });
-      return id;
-    },
-    updateUrl ({ commit }, { id, payload }: { id: number, payload: IAudio }): void {
-      commit('update', { id, payload });
+  // Actions
+  const create = (url: string): number => {
+    const id: number = increamentId.next().value;
+    state.audioUrls.push({ id, url });
+    return id;
+  }
+
+  const update = (id: number, name: string, category: string) => {
+    const index: number = state.audioUrls.findIndex((item: { id: number; }) => item.id === id);
+    if (index !== -1) {
+      state.audioUrls[index] = Object.assign(state.audioUrls[index], { name, category });
     }
   }
+
+
+  // Provider
+  provide('getList', audioUrls);
+  provide('createUrl', create);
+  provide('updateUrl', update);
+  return state;
+}
+
+// create store
+export const useStore = () => ({
+  // Injection
+  getList: inject('getList'),
+  createUrl: inject('createUrl'),
+  updateUrl: inject('updateUrl')
 });

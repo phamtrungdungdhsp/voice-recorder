@@ -2,25 +2,30 @@
   <div class="container" id="recording-page">
     <section class="main-content">
       <div class="contain">
-        <div :class="!recording ? 'icon-record' : 'icon-record active'" v-on:click="switchRecording">
-          <img v-if="!recording" class="voice-button" src="../../assets/voice.svg"/>
-          <img v-else class="voice-button" src="../../assets/stop-button.svg"/>
+        <div :class="!recording ? 'icon-record inactive' : 'icon-record active'" v-on:click="switchRecording">
+          <box-icon v-if="!recording" name="microphone" color="#fff" size="md" />
+          <box-icon v-else name="square" color="#fff" size="md" type="solid" />
         </div>
-        <span v-if="!recording">Click to Start Recording</span>
-        <span v-else class="recording">Stop Recording</span>
+        <span v-if="!recording" class="recording off">Click to Start Recording</span>
+        <span v-else class="recording on">Stop Recording</span>
       </div>
     </section>
   </div>
 </template>
 
 <script lang="ts" scoped>
-import { Vue } from 'vue-class-component';
-import { Action } from 'vuex-class';
+import { Vue, setup } from 'vue-class-component';
+import { useStore } from '@/store';
 
 export default class RecordingPage extends Vue {
-  @Action('addUrl') addUrl: any;
   recording: boolean = false;
   mediaRecorder: MediaRecorder|null|undefined;
+  action: any = setup(() => {
+    const store = useStore();
+    const createUrl = store.createUrl;
+    return { createUrl }
+  })
+
   mounted () {
     this.onSaveRecording.bind(this)
   }
@@ -46,7 +51,6 @@ export default class RecordingPage extends Vue {
     const chunks: any = [];
     this.mediaRecorder.onstop = () => {
       this.onSaveRecording(chunks);
-      console.log(stream.getAudioTracks())
       stream.getAudioTracks()[0].enabled = false;
     };
     this.mediaRecorder.ondataavailable = (event: BlobEvent): void => {
@@ -62,11 +66,7 @@ export default class RecordingPage extends Vue {
   async onSaveRecording (chunks: any) {
     const blob: Blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
     const audioUrl: string = window.URL.createObjectURL(blob);
-    const id: number = await this.addUrl({
-      url: audioUrl,
-      name: 'No name',
-      category: 'No category'
-    })
+    const id: number = this.action.createUrl(audioUrl);
     this.$router.push({ name: 'RecordingInformation', params: { id } })
   }
 }
