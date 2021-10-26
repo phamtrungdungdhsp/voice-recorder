@@ -3,7 +3,7 @@
     <section class="main-content">
       <form class="form" @submit="onSubmit">
         <div>
-          <img src="../../assets/voice.svg" class="logo" alt="">
+          <box-icon name="microphone" color="#808080" size="md" />
         </div>
         <h2 class="title">Recording Information</h2>
         <input type="text" v-model="name" class="form-control" placeholder="Name of Recording"/>
@@ -17,13 +17,17 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
-import { Action } from 'vuex-class';
+import { Vue, setup } from "vue-class-component";
+import { useStore } from '@/store';
+import 'boxicons';
 export default class RecordingInformationPage extends Vue {
-  @Action('updateUrl') updateUrl: any
   name: string = '';
   category: string = '';
   id: number = 1;
+  action: any = setup(() => {
+    const store = useStore();
+    return { updateUrl: store.updateUrl };
+  });
 
   mounted () {
     const { id: urlId } = this.$route.params;
@@ -34,7 +38,7 @@ export default class RecordingInformationPage extends Vue {
   }
   async onSubmit (e: Event) {
     e.preventDefault();
-    await this.updateUrl({ id: this.id, payload: { name: this.name, category: this.category } })
+    this.action.updateUrl(this.id, this.name, this.category);
     this.$router.push({ name: 'List' })
   }
 }

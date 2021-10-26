@@ -4,12 +4,12 @@
   align-items: center;
 
   .main-content {
-    width: 20rem;
-    padding: 50px;
-    background: #dfe6e9;
-    border-radius: 12px;
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
-
+    width: 20em;
+    padding: 3.125em;
+    background: #dcdcdc;
+    border-radius: 1em;
+    opacity: 0.8;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 3px;
     .form {
       display: grid;
       grid-template-columns: 1fr;
@@ -20,30 +20,28 @@
 
       .title {
         margin: 0;
+        font-size: 1.5em;
+        font-weight: 700;
       }
 
       .form-control {
-        padding: 20px;
+        padding: 1.25em;
         outline: none;
         border: none;
-        border-radius: 10px;
+        border-radius: 1em;
       }
 
       .button {
-        padding: 20px;
+        padding: 1.25em;
         outline: none;
         border: none;
-        border-radius: 30px;
+        border-radius: 0.875em;
         width: 80%;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 1em;
         font-weight: 600;
-        background: #ff7675;
-        color: #fff;
-        
-        :hover {
-          background: red;
-        }
+        background: $color-pink;
+        color: $color-white;
       }
     }
   }

@@ -4,51 +4,53 @@
   align-items: center;
 
   .main-content {
-    width: 20rem;
-    height: 15rem;
+    width: 20em;
+    height: 15em;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #dfe6e9;
-    border-radius: 12px;
-    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    background: $color-white;
+    border-radius: 1em;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 3px;
     .contain {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      span {
-        font-size: 14px;
+      span.recording {
+        font-size: 0.85em;
         font-weight: 600;
-      } & .recording {
-        color: #ff7675;
+      } & .on {
+        color: $color-pink;
+      } & .off {
+        color: $color-gray3;
       }
       .icon-record {
-        width: 70px;
-        height: 70px;
+        width: 4.375em;
+        height: 4.375em;
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 50%;
         padding: 5px;
-        background: #ff7675;
+        background: #ff039b;
         cursor: pointer;
-        margin-bottom: 10px;
+        margin-bottom: 0.725em;
         .voice-button {
-          width: 30px;
-          height: 30px;
-          color: #fff;
-        }
+          width: 1.875em;
+          height: 1.875em;
+          color: $color-white;        }
       } & .active {
         animation: pulse 1.5s infinite;
+      } & .inactive {
+        box-shadow: 0 0 0 0.25em #d0d0d0;
       }
     }
-
   }
 
   @-webkit-keyframes pulse {
     0% {
-      -webkit-box-shadow: 0 0 0 0 #ff7675;
+      -webkit-box-shadow: 0 0 0 0 #d0d0d0;
     }
     70% {
         -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
@@ -59,8 +61,8 @@
   }
   @keyframes pulse {
     0% {
-      -moz-box-shadow: 0 0 0 0 #ff7675;
-      box-shadow: 0 0 0 0 #ff7675;
+      -moz-box-shadow: 0 0 0 0 #d0d0d0;
+      box-shadow: 0 0 0 0 #d0d0d0;
     }
     70% {
         -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);

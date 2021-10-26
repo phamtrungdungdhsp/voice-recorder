@@ -1,26 +1,33 @@
 <template>
   <div class="container" id="history">
     <section class="main-content">
-      <table class="table">
+      <audio :src="source" controls class="audio-player" ref="audio"/>
+      <table class="table header">
         <thead>
-          <th>STT</th>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Action</th>
+          <th style="width: 10%"></th>
+          <th style="width: 30%">Name</th>
+          <th style="width: 30%">Category</th>
+          <th style="width: 30%"></th>
         </thead>
+      </table>
+      <table class="table body">
         <tbody>
-          <tr v-if="history.length === 0">
+          <tr v-if="data.list.length === 0">
             <td colspan="4">No record found</td>
           </tr>
         </tbody>
-        <tbody v-if="history.length > 0">
-          <tr v-for="(item, index) in history" v-bind:key="item.item">
-            <td>{{ index + 1 }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.category }}</td>
-            <td>
-              <button class="button play" v-if="playing !== index" type="button" @click="changeUrl(index, item.url)">Play</button>
-              <button class="button stop" v-if="playing === index" type="button" @click="stopAudio">Stop</button>
+        <tbody v-if="data.list.length > 0">
+          <tr v-for="(item, index) in data.list" v-bind:key="item.item">
+            <td style="width: 10%"><div class="show-index">{{ index + 1 }}</div></td>
+            <td tyle="width: 30%">{{ item.name }}</td>
+            <td tyle="width: 30%">{{ item.category }}</td>
+            <td tyle="width: 30%">
+              <div class="button-circle" v-if="playing !== index" type="button" @click="changeUrl(index, item.url)">
+                <box-icon name="play-circle" type="logo" color="#eb1395" size="md"/>
+              </div>
+              <div class="button-circle" v-if="playing === index" type="button" @click="stopAudio">
+                <box-icon name="stop-circle" type="logo" color="#eb1395" size="md"/>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -28,7 +35,7 @@
     </section>
     <div class="new-record" @click="$router.push({ name: 'RecordingPage' })">
       <div class="icon-record">
-        <img class="voice-button" src="../../assets/voice.svg" alt="">
+         <box-icon v-if="!recording" name="microphone" color="#fff" size="md" />
       </div>
       <span>New Recording</span>
     </div>
@@ -36,26 +43,34 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
-import { State } from 'vuex-class';
+import { computed } from 'vue';
+import { Vue, setup } from "vue-class-component";
+import { useStore } from '@/store';
 
 export default class HistoryPage extends Vue {
+  declare $refs: {
+    audio: HTMLMediaElement
+  }
   audio: any;
   playing: number = -1;
   source: string = '';
-  @State('audioUrls') history: any;
+  data: any = setup(() => {
+    const store: any = useStore();
+    const list = computed(() => store.getList.value)
+    return { list: list.value || [] }
+  })
 
   changeUrl (index: number, url: string): void {
     this.source = url;
-    this.audio = new Audio(url);
-    this.audio.play();
     this.playing = index;
-    this.audio.addEventListener('ended', () => this.stopAudio());
+    this.$refs.audio.currentTime = 0;
+    this.$refs.audio.play();
+    this.$refs.audio.addEventListener('ended', () => this.stopAudio());
   }
   
   stopAudio () {
-    this.audio.pause();
-    this.audio.currentTime = 0
+    this.$refs.audio.pause();
+    this.$refs.audio.currentTime = 0;
     this.playing = -1;
   }
 }
