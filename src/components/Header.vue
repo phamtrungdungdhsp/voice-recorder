@@ -1,11 +1,7 @@
 <template>
   <div class="header">
-    <div class="logo">
-      Voice Recorder
-    </div>
-    <nav class="nav">
-      
-    </nav>
+    <div class="logo">Voice Recorder</div>
+    <nav class="nav"></nav>
   </div>
 </template>
 
