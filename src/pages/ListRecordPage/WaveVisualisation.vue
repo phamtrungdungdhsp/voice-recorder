@@ -1,84 +1,81 @@
 <template>
-  <audio :src="source" ref="player" controls :class="$style.player" />
-  <canvas :class="$style.canvas" ref="canvas" controls />
+ <canvas :class="$style.canvas" ref="canvas" />
 </template>
 <script lang="ts">
-import { defineComponent, inject, Ref, ref, onMounted } from "@vue/runtime-core";
-import { AudioSource, AUDIO_PROVIDER_GET } from "store";
+import { defineComponent, ref, Ref, onMounted, toRefs, watch } from "@vue/runtime-core";
 
 export default defineComponent({
   props: {
-    index: Number
+    data: Uint8Array,
+    index: Number,
+    playing: Number,
+    player: HTMLMediaElement
   },
   setup(props) {
-    const audios: Ref<AudioSource[]> | undefined = inject(AUDIO_PROVIDER_GET);
-    const source: Ref<string | undefined> = ref(audios?.value[props?.index || 0].url);
-    const player: Ref<HTMLMediaElement | undefined> = ref();
     const canvas: Ref<HTMLCanvasElement | undefined> = ref();
-    let ctx: CanvasRenderingContext2D | null | undefined;
-    onMounted(() => {
-      ctx = canvas?.value?.getContext('2d');
-    })
-    const start = (index: number) => {
-      if (!audios || !player.value || !ctx || !canvas.value) {
-        return null;
-      }
-      source.value = decodeURIComponent(audios.value[index].url);
-      player.value.load();
-      player.value.play();
-      const context: AudioContext = new AudioContext();
-      const src: MediaElementAudioSourceNode = context.createMediaElementSource(player.value);
-      const distortion = context.createWaveShaper();
-      const analyser: AnalyserNode = context.createAnalyser();
-      src.connect(analyser);
+    const { playing } = toRefs(props);
+    const onPlay = () => {
+      if (!props.player) { return ; }
+      const audioCtx: AudioContext = new AudioContext();
+      const analyser: AnalyserNode = audioCtx.createAnalyser();
+      const distortion: WaveShaperNode = audioCtx.createWaveShaper();
+      const audioSource = audioCtx.createMediaElementSource(props.player);
+      audioSource.connect(analyser);
       analyser.connect(distortion);
-      distortion.connect(context.destination);
-      console.log(player.value.paused);
+      distortion.connect(audioCtx.destination);
       analyser.fftSize = 256;
 
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
-
-      const WIDTH = canvas.value.width;
-      const HEIGHT = canvas.value.height;
-      
-      ctx.clearRect(0, 0, WIDTH, HEIGHT);
-      function renderFrame () {
-        if (!ctx) { return ; }
-        const request = requestAnimationFrame(renderFrame);
-        console.log('go hre', player?.value?.paused)
-
+      const render = () => {
+        requestAnimationFrame(render);
         analyser.getByteFrequencyData(dataArray);
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(0, 0, WIDTH, HEIGHT);
-        let barWidth: number = (WIDTH / bufferLength) * 1.5;
-        let barHeight: number;
-        let x = 0;
-        for (let i = 0; i < bufferLength; i++) {
-          barHeight = dataArray[i] / 2;
-          ctx.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-          ctx.fillRect(x, HEIGHT-barHeight / 2 ,barWidth,barHeight);
-          x += barWidth + 1;
-        }
-        if (player.value?.paused) {
-          ctx.fillStyle = '#fff';
-          ctx.fillRect(0, 0, WIDTH, HEIGHT);
-          cancelAnimationFrame(request);
-        }
+        draw('red', dataArray);
       }
-      player.value.play();
-      renderFrame();
+      render();
     }
-    return { start, source, player, canvas }
-  }
+    const draw = (color: string, dataArray: Uint8Array) => {
+      if (!canvas.value) { return ; }
+      const ctx: CanvasRenderingContext2D | null = canvas.value.getContext('2d');
+      if (!ctx) { return ; }
+      const WIDTH: number = canvas.value.width;
+      const HEIGHT: number = canvas.value.height;
+      ctx.clearRect(0, 0, WIDTH, HEIGHT);
+      ctx.fillStyle = color;
+     
+      let currx: number = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        const barHeight = dataArray[i];
+        ctx.fillRect(currx, (HEIGHT/2) - (barHeight / 2), 5, barHeight);
+        currx+=8;
+      }
+    }
+    const initDraw = () => {
+      const value: number[] = []
+      for (let i = 0; i < 30 ; i++) {
+        value.push(75);
+        value.push(150);
+      }
+      draw('#d8d8d8d8', new Uint8Array(value));
+    }
+    onMounted(() => initDraw());
+    watch(playing, () => {
+      if (props.index === props.playing) {
+        console.log(props.index, props.playing)
+        onPlay()
+      }
+    });
+    return { canvas }
+  },
 });
 </script>10.7421875, 107.421875, 50
 <style lang="scss" module>
-.canvas {
-  width: 100%;
-  height: 3.125em;
-}
-.player {
-  display: none;
-}
+  .canvas {
+    width: 100%;
+    height: 3.125em;
+    background: #fff;
+  }
+  .player {
+    display: none;
+  }
 </style>

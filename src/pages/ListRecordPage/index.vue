@@ -21,6 +21,8 @@
               :category="item.category"
               @play="play"
               :playing="playing"
+              :data="dataArray"
+              :player="player"
             />
           </li>
         </template>
@@ -56,7 +58,8 @@ export default defineComponent({
     const audios: Ref<AudioSource[]> | undefined = inject(AUDIO_PROVIDER_GET);
     const playing = ref(-1);
     const source: Ref<undefined | string> = ref();
-    const player: Ref<HTMLMediaElement |undefined> = ref();
+    const player: Ref<HTMLMediaElement | undefined> = ref();
+    const dataArray: Ref<Uint8Array | undefined> = ref();
     const router = useRouter();
 
     //Take user to main screen if no audios
@@ -83,6 +86,8 @@ export default defineComponent({
       playing.value = index;
       player.value.play();
       console.log(source.value);
+
+      // create wave visualizer
     };
     return {
       audios,
@@ -90,6 +95,7 @@ export default defineComponent({
       play,
       playing,
       player,
+      dataArray
     };
   },
 });

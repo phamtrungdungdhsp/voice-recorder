@@ -6,7 +6,12 @@
     <li :class="$style.f2">{{ name }}</li>
     <li :class="$style.f2">{{ category }}</li>
     <li :class="$style.f4">
-      <wave-visualisation ref="visualisation" :index="index"/>
+      <wave-visualisation
+        :data="data"
+        :index="index"
+        :playing="playing"
+        :player="player"
+      />
     </li>
     <li :class="$style.f1">
       <div :class="$style.buttonCircle" type="button">
@@ -16,7 +21,7 @@
   </ul>
 </template>
 <script lang="ts">
-import { defineAsyncComponent, defineComponent, ref } from "@vue/runtime-core";
+import { defineAsyncComponent, defineComponent  } from "@vue/runtime-core";
 import WaveVisualisation from "./WaveVisualisation.vue";
 const AstIcoPlay = defineAsyncComponent(
   () => import("assets/icons/AstIcoPlay.vue")
@@ -27,21 +32,21 @@ export default defineComponent({
     WaveVisualisation,
     AstIcoPlay,
   },
-  // emits: ["play"],
+  emits: ["play"],
   props: {
     index: Number,
     name: String,
-    category: String
+    category: String,
+    playing: Number,
+    data: Uint8Array,
+    player: HTMLMediaElement
   },
-  setup(props) {
-    const visualisation = ref();
+  
+  setup(props, context) {
     const play = () => {
-      visualisation.value.start(props?.index);
+      context.emit("play", props.index);
     };
-    return {
-      play,
-      visualisation
-    };
+    return { play };
   },
 });
 </script>
