@@ -1,11 +1,14 @@
 <template>
   <ul :class="$style.wrapper" @click="play">
-    <li>
+    <li :class="$style.f1">
       <div class="show-index">{{ index + 1 }}</div>
     </li>
-    <li>{{ name }}</li>
-    <li>{{ category }}</li>
-    <li>
+    <li :class="$style.f2">{{ name }}</li>
+    <li :class="$style.f2">{{ category }}</li>
+    <li :class="$style.f4">
+      <wave-visualisation ref="visualisation" :index="index"/>
+    </li>
+    <li :class="$style.f1">
       <div :class="$style.buttonCircle" type="button">
         <ast-ico-play />
       </div>
@@ -13,27 +16,31 @@
   </ul>
 </template>
 <script lang="ts">
-import { defineAsyncComponent, defineComponent } from "@vue/runtime-core";
+import { defineAsyncComponent, defineComponent, ref } from "@vue/runtime-core";
+import WaveVisualisation from "./WaveVisualisation.vue";
 const AstIcoPlay = defineAsyncComponent(
   () => import("assets/icons/AstIcoPlay.vue")
 );
 
 export default defineComponent({
   components: {
+    WaveVisualisation,
     AstIcoPlay,
   },
-  emits: ["play"],
+  // emits: ["play"],
   props: {
     index: Number,
     name: String,
-    category: String,
+    category: String
   },
-  setup(props, context) {
+  setup(props) {
+    const visualisation = ref();
     const play = () => {
-      context.emit("play", props.index);
+      visualisation.value.start(props?.index);
     };
     return {
       play,
+      visualisation
     };
   },
 });
@@ -51,10 +58,15 @@ export default defineComponent({
   fill: $color-pink;
   transition: color 0.1s, background-color 0.1s;
   cursor: pointer;
-  &:hover {
-    background-color: $color-pink;
-    color: #fff;
-    fill: #fff;
+  // &:hover {
+  //   background-color: $color-pink;
+  //   color: #fff;
+  //   fill: #fff;
+  // }
+  @for $i from 1 through 4 {
+    .f#{$i} {
+      flex: #{$i}
+    }
   }
 }
 </style>

@@ -3,10 +3,11 @@
     <section :class="$style.mainContent">
       <audio :src="source" ref="player" controls :class="$style.player" />
       <ul :class="$style.heading">
-        <li></li>
-        <li>Name</li>
-        <li>Category</li>
-        <li></li>
+        <li :class="$style.f1"></li>
+        <li :class="$style.f2">Name</li>
+        <li :class="$style.f2">Category</li>
+        <li :class="$style.f4"></li>
+        <li :class="$style.f1"></li>
       </ul>
       <ul :class="$style.table">
         <li v-if="audios.length === 0" :class="$style.listNotFound">
@@ -55,7 +56,7 @@ export default defineComponent({
     const audios: Ref<AudioSource[]> | undefined = inject(AUDIO_PROVIDER_GET);
     const playing = ref(-1);
     const source: Ref<undefined | string> = ref();
-    const player: Ref<HTMLAudioElement | undefined> = ref();
+    const player: Ref<HTMLMediaElement |undefined> = ref();
     const router = useRouter();
 
     //Take user to main screen if no audios
@@ -145,11 +146,23 @@ export default class HistoryPage extends Vue {
   display: none;
 }
 
-.heading,
+.heading {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em;
+  width: 50em;
+
+  @for $i from 1 through 4 {
+    .f#{$i} {
+      flex: #{$i}
+    }
+  }
+}
 .table > li > ul {
   display: flex;
   justify-content: space-between;
   padding: 0.5em;
+  width: 50em;
 }
 
 .heading {
@@ -161,7 +174,7 @@ export default class HistoryPage extends Vue {
 
 .heading li,
 .table > li > ul > li {
-  width: calc((100% - 6em) / 2);
+  width: 100%;
   padding: 0 0.5em;
   text-align: left;
   line-height: 1.8;
@@ -194,7 +207,7 @@ export default class HistoryPage extends Vue {
 }
 
 .table {
-  width: 45em;
+  width: 50em;
   max-width: 100%;
   background: $color-white;
   max-height: calc(100vh - 10em);

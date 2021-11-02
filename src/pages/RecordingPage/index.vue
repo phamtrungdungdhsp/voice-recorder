@@ -88,6 +88,9 @@ const mainRecorder = async function (router: Router): Promise<MediaRecorder> {
 const saveRecording = (chunks: Blob[], router: Router) => {
   const blob = new Blob(chunks, { type: "audio/ogg;codecs=opus" });
   const src = URL.createObjectURL(blob);
+  console.log(src);
+
+  
   //Encode the URL
   const encodedSrc = encodeURIComponent(src);
   router.push(`/information/${encodedSrc}`);
