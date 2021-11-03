@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <section :class="$style.mainContent">
-      <audio :src="source" ref="player" controls :class="$style.player" />
+      <!-- <audio :src="source" ref="player" controls :class="$style.player" /> -->
       <ul :class="$style.heading">
         <li :class="$style.f1"></li>
         <li :class="$style.f2">Name</li>
@@ -68,26 +68,28 @@ export default defineComponent({
       router.push("/");
     }
 
-    const play = (index: number) => {
-      if (!player.value || !audios?.value.length) {
+    const play = async (index: number) => {
+      if (!audios?.value.length) {
         return;
       }
-
+      
       console.log("about to play");
 
       if (playing.value === index && !player.value.paused) {
         player.value.pause();
-        return;
+        playing.value = -1;
+        player.value = undefined;
       } else if (playing.value === index) {
-        player.value.play();
+        playing.value = index;
+        await player.value.play();
+      } else {
+        const url = decodeURIComponent(audios.value[index].url);
+        player.value = new Audio(url);
+        playing.value = index;
+        await player.value.load();
+        await player.value.play();
       }
 
-      source.value = decodeURIComponent(audios.value[index].url);
-      playing.value = index;
-      player.value.play();
-      console.log(source.value);
-
-      // create wave visualizer
     };
     return {
       audios,

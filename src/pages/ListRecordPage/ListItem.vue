@@ -14,8 +14,11 @@
       />
     </li>
     <li :class="$style.f1">
-      <div :class="$style.buttonCircle" type="button">
+      <div :class="$style.buttonCircle" type="button" v-if="playing !== index">
         <ast-ico-play />
+      </div>
+      <div :class="$style.buttonCircle" type="button" v-else>
+        stop
       </div>
     </li>
   </ul>

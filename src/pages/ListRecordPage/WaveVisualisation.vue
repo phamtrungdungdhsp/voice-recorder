@@ -14,12 +14,14 @@ export default defineComponent({
   setup(props) {
     const canvas: Ref<HTMLCanvasElement | undefined> = ref();
     const { playing } = toRefs(props);
+    let audioSource: MediaElementAudioSourceNode|null;
     const onPlay = () => {
       if (!props.player) { return ; }
       const audioCtx: AudioContext = new AudioContext();
       const analyser: AnalyserNode = audioCtx.createAnalyser();
       const distortion: WaveShaperNode = audioCtx.createWaveShaper();
-      const audioSource = audioCtx.createMediaElementSource(props.player);
+      console.log(audioSource)
+      audioSource = audioCtx.createMediaElementSource(props.player);
       audioSource.connect(analyser);
       analyser.connect(distortion);
       distortion.connect(audioCtx.destination);
@@ -46,13 +48,13 @@ export default defineComponent({
       let currx: number = 0;
       for (let i = 0; i < dataArray.length; i++) {
         const barHeight = dataArray[i];
-        ctx.fillRect(currx, (HEIGHT/2) - (barHeight / 2), 5, barHeight);
-        currx+=8;
+        ctx.fillRect(currx, (HEIGHT/2) - (barHeight / 2), 2, barHeight);
+        currx+=4;
       }
     }
     const initDraw = () => {
       const value: number[] = []
-      for (let i = 0; i < 30 ; i++) {
+      for (let i = 0; i < 100 ; i++) {
         value.push(75);
         value.push(150);
       }
@@ -63,6 +65,10 @@ export default defineComponent({
       if (props.index === props.playing) {
         console.log(props.index, props.playing)
         onPlay()
+      } else {
+        console.log('disconnect');
+        audioSource && audioSource.disconnect();
+        audioSource = null;
       }
     });
     return { canvas }
