@@ -18,7 +18,7 @@
         <ast-ico-play />
       </div>
       <div :class="$style.buttonCircle" type="button" v-else  @click="stop">
-        stop
+        <ast-ico-pause />
       </div>
     </li>
   </ul>
@@ -29,11 +29,15 @@ import WaveVisualisation from "./WaveVisualisation.vue";
 const AstIcoPlay = defineAsyncComponent(
   () => import("assets/icons/AstIcoPlay.vue")
 );
+const AstIcoPause = defineAsyncComponent(
+  () => import("assets/icons/AstIcoPause.vue")
+);
 
 export default defineComponent({
   components: {
     WaveVisualisation,
     AstIcoPlay,
+    AstIcoPause
   },
   emits: ["play", "stop"],
   props: {
