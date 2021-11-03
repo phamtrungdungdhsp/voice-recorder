@@ -1,5 +1,5 @@
 <template>
-  <ul :class="$style.wrapper" @click="play">
+  <ul :class="$style.wrapper">
     <li :class="$style.f1">
       <div class="show-index">{{ index + 1 }}</div>
     </li>
@@ -14,10 +14,10 @@
       />
     </li>
     <li :class="$style.f1">
-      <div :class="$style.buttonCircle" type="button" v-if="playing !== index">
+      <div :class="$style.buttonCircle" type="button" v-if="playing !== index"  @click="play">
         <ast-ico-play />
       </div>
-      <div :class="$style.buttonCircle" type="button" v-else>
+      <div :class="$style.buttonCircle" type="button" v-else  @click="stop">
         stop
       </div>
     </li>
@@ -35,7 +35,7 @@ export default defineComponent({
     WaveVisualisation,
     AstIcoPlay,
   },
-  emits: ["play"],
+  emits: ["play", "stop"],
   props: {
     index: Number,
     name: String,
@@ -49,7 +49,10 @@ export default defineComponent({
     const play = () => {
       context.emit("play", props.index);
     };
-    return { play };
+    const stop = () => {
+      context.emit("stop");
+    }
+    return { play, stop };
   },
 });
 </script>

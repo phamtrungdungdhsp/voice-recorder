@@ -15,12 +15,12 @@ export default defineComponent({
     const canvas: Ref<HTMLCanvasElement | undefined> = ref();
     const { playing } = toRefs(props);
     let audioSource: MediaElementAudioSourceNode|null;
+    let drawVisualizer: number;
     const onPlay = () => {
       if (!props.player) { return ; }
       const audioCtx: AudioContext = new AudioContext();
       const analyser: AnalyserNode = audioCtx.createAnalyser();
       const distortion: WaveShaperNode = audioCtx.createWaveShaper();
-      console.log(audioSource)
       audioSource = audioCtx.createMediaElementSource(props.player);
       audioSource.connect(analyser);
       analyser.connect(distortion);
@@ -30,7 +30,7 @@ export default defineComponent({
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
       const render = () => {
-        requestAnimationFrame(render);
+        drawVisualizer = requestAnimationFrame(render);
         analyser.getByteFrequencyData(dataArray);
         draw('red', dataArray);
       }
@@ -66,15 +66,14 @@ export default defineComponent({
         console.log(props.index, props.playing)
         onPlay()
       } else {
-        console.log('disconnect');
-        audioSource && audioSource.disconnect();
-        audioSource = null;
+        cancelAnimationFrame(drawVisualizer);
+        initDraw();
       }
     });
     return { canvas }
   },
 });
-</script>10.7421875, 107.421875, 50
+</script>
 <style lang="scss" module>
   .canvas {
     width: 100%;
