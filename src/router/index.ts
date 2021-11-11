@@ -1,24 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import RecordingPage from "pages/RecordingPage/index.vue";
-import RecordingInformationPage from "pages/RecordingInformationPage/index.vue";
-import ListRecordPage from "pages/ListRecordPage/index.vue";
-
+import SecurityCheck from "pages/SecurityCheck/index.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
-    name: "RecordingPage",
-    component: RecordingPage,
-  },
-  {
-    path: "/information/:id",
-    name: "RecordingInformation",
-    component: RecordingInformationPage,
-  },
-  {
-    path: "/list",
-    name: "List",
-    component: ListRecordPage,
-  },
+    name: "SecurityCheck",
+    component: SecurityCheck,
+  }
 ];
 
 const router = createRouter({
