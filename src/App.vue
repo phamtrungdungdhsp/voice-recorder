@@ -6,7 +6,7 @@
   </audio-source-provider>
 </template>
 <script lang="ts" scoped>
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent } from "vue";
 import AudioSourceProvider from "store/audio";
 
 export default defineComponent({

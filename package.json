@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@mayank1513/vue-tag-input": "^0.0.4",
     "@types/dom-mediacapture-record": "^1.0.10",
     "boxicons": "^2.0.9",
     "core-js": "^3.6.5",
