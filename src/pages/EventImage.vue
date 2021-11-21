@@ -111,7 +111,7 @@ export default defineComponent({
   border-radius: 1.25em;
   .hrTag {
     height: 1px;
-    margin: 0 1em;
+    margin: 0 4em;
     background: #a5a5a5;
     opacity: 0.3;
   }
@@ -133,7 +133,7 @@ export default defineComponent({
       p {
         color: $color-gray5;
         opacity: 0.5;
-        font-size: 1em;
+        font-size: 0.875em;
         font-weight: 500;
       }
     }
@@ -306,6 +306,9 @@ export default defineComponent({
 @media only screen and (max-width: 415px) {
   .wrapper {
     margin: 1em;
+      .hrTag {
+    margin: 0 1em;
+  }
     .container {
       row-gap: 2em;
     }

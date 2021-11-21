@@ -30,7 +30,7 @@ export default defineComponent({
 .eventSelect {
   display: flex;
   flex-direction: column;
-  row-gap: 2em;
+  row-gap: 1em;
 
   .input {
     display: flex;
@@ -42,7 +42,7 @@ export default defineComponent({
       flex-direction: column;
       justify-content: space-between;
       .title {
-        font-size: 1.25em;
+        font-size: 1;
         font-weight: 500;
       }
       .small {

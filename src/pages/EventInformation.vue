@@ -27,9 +27,8 @@
           description="Improve discoverability of your event by adding tags relevant to the subject matter."
           :required="false"
         />
-        <hr :class="$style.hrTag" />
       </div>
-
+      <hr :class="$style.hrTag" />
       <!-- section 2 -->
       <div :class="[$style.section, $style.section2]">
         <div :class="$style.mainTitle">
@@ -95,9 +94,8 @@
             />
           </div>
         </div>
-        <hr :class="$style.hrTag" />
       </div>
-
+        <hr :class="$style.hrTag" />
       <!-- section 3 -->
       <div :class="[$style.section, $style.section3]">
         <div :class="$style.mainTitle">
@@ -157,7 +155,7 @@ export default defineComponent({
   border-radius: 1.25em;
   .hrTag {
     height: 1px;
-    width: 100%;
+    margin: 0 4em;
     background: #a5a5a5;
     opacity: 0.3;
   }
@@ -179,7 +177,7 @@ export default defineComponent({
       p {
         color: $color-gray5;
         opacity: 0.5;
-        font-size: 1em;
+        font-size: 0.875em;
         font-weight: 500;
       }
     }
@@ -199,7 +197,7 @@ export default defineComponent({
       .buttonTab {
         background: #fff;
         border: 1px solid $color-pink;
-        font-size: 1.25em;
+        font-size: 1em;
         color: #171717;
         opacity: 0.5;
         padding: 1.25em 3em;
@@ -220,7 +218,7 @@ export default defineComponent({
         flex-direction: column;
         row-gap: 1em;
         .title {
-          font-size: 1.25em;
+          font-size: 1em;
           font-weight: 500;
         }
       }

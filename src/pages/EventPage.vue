@@ -235,7 +235,6 @@ export default defineComponent({
         align-items: center;
         width: 100%;
         form {
-          width: 100%;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -244,6 +243,7 @@ export default defineComponent({
           padding: 0.3em 0.6em;
           border-radius: 0.25em;
           background: #fff;
+          font-size: 0.875em;
           .icon {
             display: flex;
             align-items: center;
@@ -253,7 +253,7 @@ export default defineComponent({
           input {
             outline: none;
             flex: 1;
-            font-weight: 600;
+            font-weight: 500;
             padding: 0 0.75em;
           }
           button {
@@ -338,6 +338,7 @@ export default defineComponent({
 @media only screen and (max-width: 415px) {
   .wrapper {
     max-width: 95vw;
+    margin: 0.5em;
     .menuHead {
       font-size: 0.875em !important;
     }

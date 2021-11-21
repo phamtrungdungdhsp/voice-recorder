@@ -218,6 +218,9 @@ export default defineComponent({
           row-gap: 0.5em;
         }
       }
+      .options {
+        padding: 0 1em;
+      }
     }
   }
 }

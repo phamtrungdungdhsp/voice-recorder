@@ -5,6 +5,7 @@ import EventInformation from "pages/EventInformation.vue";
 import EventImage from "pages/EventImage.vue";
 import EventPublishing from "pages/EventPublishing.vue";
 import EventDetail from "pages/EventDetail.vue";
+import UserPage from "pages/UserPage.vue";
 const routes: Array<RouteRecordRaw> = [
   // {
   //   path: "/",
@@ -35,6 +36,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/detail",
     name: "EventDetail",
     component: EventDetail
+  },
+  {
+    path: "/user",
+    name: "UserPage",
+    component: UserPage
   }
 ];
 
