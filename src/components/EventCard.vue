@@ -9,8 +9,10 @@
 
     <div :class="$style.info">
       <p :class="$style.name">Event's Name</p>
-      <p :class="[$style.small, $style.pink]">Tomorrow at 19:00</p>
-      <p :class="[$style.small, $style.gray]">Balakosa Coffe & Co. | London | United Kingdom</p>
+      <p :class="[$style.small, $style.pink, $style.lineClamp]">Tomorrow at 19:00</p>
+      <p :class="[$style.small, $style.gray, $style.lineClamp]">
+        Balakosa Coffe & Co. | London | United Kingdom
+      </p>
       <p :class="$style.small">Free Ticket</p>
       <p :class="[$style.small, $style.gray]">1025 Followers</p>
     </div>
@@ -36,6 +38,13 @@ export default defineComponent({
   .small {
     font-size: 0.625em;
     font-weight: 500;
+  }
+
+  .lineClamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .pink {

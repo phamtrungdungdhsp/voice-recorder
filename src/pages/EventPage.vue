@@ -128,7 +128,7 @@ export default defineComponent({
       width: 100%;
       align-items: center;
       font-weight: 700;
-      font-size: 1em;
+      font-size: 0.875em;
       cursor: pointer;
       li {
         transition: all 0.3s ease-in;
@@ -147,7 +147,7 @@ export default defineComponent({
       width: 100%;
       align-items: center;
       font-weight: 500;
-      font-size: 1em;
+      font-size: 0.875em;
       cursor: pointer;
       flex-wrap: wrap;
       li {
@@ -302,7 +302,7 @@ export default defineComponent({
           color: $color-gray5;
           opacity: 0.5;
           font-weight: 600;
-          font-size: 1em;
+          font-size: 0.875em;
           background: #fff;
         }
       }

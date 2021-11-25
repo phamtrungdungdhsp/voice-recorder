@@ -6,6 +6,8 @@ import EventImage from "pages/EventImage.vue";
 import EventPublishing from "pages/EventPublishing.vue";
 import EventDetail from "pages/EventDetail.vue";
 import UserPage from "pages/UserPage.vue";
+import VideoPage from "pages/VideoPage.vue";
+import ConfirmEmail from "pages/ConfirmEmail.vue";
 const routes: Array<RouteRecordRaw> = [
   // {
   //   path: "/",
@@ -41,6 +43,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/user",
     name: "UserPage",
     component: UserPage
+  },
+  {
+    path: "/video",
+    name: "VideoPage",
+    component: VideoPage
+  },
+  {
+    path: "/email",
+    name: "ConfirmEmail",
+    component: ConfirmEmail
   }
 ];
 

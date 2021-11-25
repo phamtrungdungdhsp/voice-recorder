@@ -15,8 +15,18 @@
         <!-- image -->
         <div :class="$style.uploadZone">
           <div :class="$style.tabs">
-            <p @click="setTab(1)" :class="{[$style.active]: currentTab === 1}">Stock Images</p>
-            <p @click="setTab(2)" :class="{[$style.active]: currentTab === 2}">Upload Images</p>
+            <p
+              @click="setTab(1)"
+              :class="{ [$style.active]: currentTab === 1 }"
+            >
+              Stock Images
+            </p>
+            <p
+              @click="setTab(2)"
+              :class="{ [$style.active]: currentTab === 2 }"
+            >
+              Upload Images
+            </p>
           </div>
         </div>
         <div :class="$style.selectZone" v-if="currentTab === 1">
@@ -44,9 +54,9 @@
             </div>
           </div>
         </div>
-        <drag-drop v-if="currentTab === 2"/>
+        <drag-drop v-if="currentTab === 2" />
       </div>
-              <hr :class="$style.hrTag" />
+      <hr :class="$style.hrTag" />
       <!-- section 2 -->
       <div :class="[$style.section, $style.section2]">
         <div :class="$style.mainTitle">
@@ -95,8 +105,8 @@ export default defineComponent({
     let currentTab: Ref<number> = ref(1);
     const setTab = (value: number): void => {
       currentTab.value = value;
-    }
-    return { currentTab, setTab }
+    };
+    return { currentTab, setTab };
   },
 });
 </script>
@@ -306,15 +316,15 @@ export default defineComponent({
 @media only screen and (max-width: 415px) {
   .wrapper {
     margin: 1em;
-      .hrTag {
-    margin: 0 1em;
-  }
+    .hrTag {
+      margin: 0 1em;
+    }
     .container {
       row-gap: 2em;
     }
     .section {
       padding: 0 1em !important;
-            row-gap: 1em !important;
+      row-gap: 1em !important;
     }
     .section1 {
       .selectZone {

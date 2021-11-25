@@ -29,7 +29,8 @@
       <div :class="$style.section2">
         <div :class="$style.content">
           <p :class="$style.title">About this event</p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          <div :class="$style.paragraph">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut etiam
           sit amet nisl purus in mollis nunc. Neque sodales ut etiam sit. Lorem
           dolor sed viverra ipsum. Amet facilisis magna etiam tempor. Purus
@@ -57,6 +58,8 @@
           faucibus et molestie ac feugiat sed lectus vestibulum. Pulvinar mattis
           nunc sed blandit libero volutpat sed cras ornare. Purus viverra
           accumsan in nisl nisi scelerisque eu.
+          </div>
+          
         </div>
         <div :class="$style.gallery">
           <p>Event Gallery</p>
@@ -222,6 +225,9 @@ export default defineComponent({
         font-size: 2.5em;
         font-weight: 900;
         margin-bottom: 0.5em;
+      }
+      .paragraph {
+        font-size: 0.875em;
       }
       .gallery {
         display: flex;

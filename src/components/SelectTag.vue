@@ -7,7 +7,7 @@
       </label>
       <div :class="$style.des">
         <p :class="$style.title">{{ item.title }}</p>
-        <p :class="$style.small" v-if="item.description">
+        <p :class="[$style.small, $style.lineClamp]" v-if="item.description">
           {{ item.description }}
         </p>
       </div>
@@ -31,10 +31,15 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   row-gap: 1em;
-
+  .lineClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
   .input {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 2em 1fr;
     column-gap: 2em;
     align-items: center;
     .des {
