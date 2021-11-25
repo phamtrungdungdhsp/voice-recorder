@@ -255,7 +255,7 @@ export default defineComponent({
         align-items: center;
         column-gap: 0.5em;
         p {
-          font-weight: 400;
+          font-weight: 450;
           font-size: 0.875em;
           color: #999a9f;
         }
@@ -372,7 +372,7 @@ export default defineComponent({
       border-radius: 1.125em;
       padding: 1.5em 1em;
       .title {
-        font-size: 1.125em;
+        font-size: 1.2em;
         font-weight: 500;
         color: #fff;
       }
@@ -400,6 +400,7 @@ export default defineComponent({
             display: flex;
             flex-direction: column;
             .name {
+              font-weight: 450;
               color: #fff;
             }
             .detail {
@@ -407,6 +408,7 @@ export default defineComponent({
               color: #020c18;
               padding: 0.5em;
               border-radius: 0 0.5em 0.5em 0.5em;
+              font-weight: 450;
             }
           }
         }
@@ -452,7 +454,7 @@ export default defineComponent({
           .sender {
             display: flex;
             flex-direction: column;
-            row-gap: 0.5em;
+            row-gap: 0.25em;
             .name {
               font-weight: 450;
             }
@@ -460,6 +462,7 @@ export default defineComponent({
               background: #fff;
               color: #020c18;
               border-radius: 0 0.5em 0.5em 0.5em;
+              font-weight: 450;
             }
           }
         }

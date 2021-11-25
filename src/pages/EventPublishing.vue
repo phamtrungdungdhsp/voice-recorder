@@ -12,11 +12,11 @@
           <p :class="$style.title">Your Event name title</p>
           <p :class="$style.time">Monday, 01 November 2022 at 07.00 AM</p>
           <div :class="$style.ticket">
-            <box-icon type="solid" name="wallet"></box-icon>
+            <box-icon type="solid" name="wallet" color="#f93975"></box-icon>
             <p>1250 Tickets</p>
           </div>
           <div :class="$style.attendees">
-            <box-icon type="solid" name="group"></box-icon>
+            <box-icon type="solid" name="group" color="#f93975"></box-icon>
             <p>985 Attendees</p>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default defineComponent({
           color: $color-gray5;
           opacity: 0.5;
           font-weight: 500;
-          font-size: 1.125em;
+          font-size: 1.2em;
         }
         .time {
           color: $color-gray5;
@@ -140,6 +140,7 @@ export default defineComponent({
           flex-direction: row;
           align-items: center;
           column-gap: 0.5em;
+          font-weight: 450;
           p {
             color: $color-gray5;
             opacity: 0.5;

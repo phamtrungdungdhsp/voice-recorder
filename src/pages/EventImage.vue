@@ -165,6 +165,7 @@ export default defineComponent({
           flex-direction: row;
           gap: 1em;
           cursor: pointer;
+          font-weight: 500;
 
           p {
             font-size: 1em;
@@ -248,6 +249,7 @@ export default defineComponent({
       height: 16em;
 
       .categories {
+        font-weight: 450;
         display: flex;
         flex-direction: column;
         row-gap: 1em;

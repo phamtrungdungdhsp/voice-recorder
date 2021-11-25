@@ -89,6 +89,7 @@ export default defineComponent({
       }
       p.description {
         font-size: 0.875em;
+        font-weight: 450;
       }
       .card {
         display: flex;
@@ -135,7 +136,7 @@ export default defineComponent({
             width: 3em;
           }
           .time {
-            font-size: 0.75em;
+            font-size: 0.8125em;
             color: $color-pink;
           }
           .location {

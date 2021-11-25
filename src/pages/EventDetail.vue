@@ -208,7 +208,7 @@ export default defineComponent({
           }
           .time,
           .price {
-            font-size: 0.875;
+            font-size: 0.875em;
             font-weight: 450;
             color: $color-pink;
           }
@@ -227,7 +227,7 @@ export default defineComponent({
         margin-bottom: 0.5em;
       }
       .paragraph {
-        font-size: 0.875em;
+        font-size: 1em;
       }
       .gallery {
         display: flex;
