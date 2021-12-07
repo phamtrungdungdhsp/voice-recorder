@@ -1,18 +1,13 @@
 <template>
-  <audio-source-provider>
-    <main :class="$style.main">
-      <router-view />
-    </main>
-  </audio-source-provider>
+  <main :class="$style.main">
+    <router-view />
+  </main>
 </template>
 <script lang="ts" scoped>
 import { defineComponent } from "@vue/runtime-core";
-import AudioSourceProvider from "store/audio";
 
 export default defineComponent({
-  components: {
-    AudioSourceProvider,
-  },
+  components: {},
 });
 </script>
 <style lang="scss" module>

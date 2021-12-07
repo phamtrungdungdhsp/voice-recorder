@@ -111,14 +111,14 @@ export default defineComponent({
     color: $color-gray3;
   }
 
-  input[type="text"] {
-    border: 1px solid $color-gray4;
-    padding: 0.5em 1em;
-    font-size: 0.875em;
-    outline: none;
-  } :focus {
-      border-color: red !important;
-  }
+  // input[type="text"] {
+  //   border: 1px solid $color-gray4;
+  //   padding: 0.5em 1em;
+  //   font-size: 0.875em;
+  //   outline: none;
+  // } :focus {
+  //     border-color: red !important;
+  // }
   .inputLg {
     padding: 1em !important;
     border-radius: 0.25em;

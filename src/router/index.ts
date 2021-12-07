@@ -1,10 +1,22 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import SecurityCheck from "pages/SecurityCheck/index.vue";
+import MainPage from "../pages/MainPage.vue";
+import CustomizeCV from "../pages/CustomizeCV.vue";
 const routes: Array<RouteRecordRaw> = [
   {
-    path: "/",
+    path: "/xxx",
     name: "SecurityCheck",
     component: SecurityCheck,
+  },
+  {
+    path: "/",
+    name: "MainPage",
+    component: MainPage,
+  },
+  {
+    path: "/cv",
+    name: "CustomizeCV",
+    component: CustomizeCV,
   }
 ];
 
